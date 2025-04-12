@@ -1,0 +1,4 @@
+.env
+bloggy/settings/development.py
+*/__pycache__
+*.cpython-312.pyc
