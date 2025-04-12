@@ -25,18 +25,28 @@ SECRET_KEY = 'django-insecure-_t-%)djxz4=hg*dr76)q4tt5f5djlmmvokibhbtv@owkd7rv7!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',  # Required for allauth
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # Third-party apps
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
+    # django apps
+    'apps.blog.apps.BlogConfig',
+    'apps.user.apps.UserConfig'
 ]
 
 MIDDLEWARE = [
@@ -47,6 +57,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # allauth
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'bloggy.urls'
@@ -54,7 +67,7 @@ ROOT_URLCONF = 'bloggy.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,3 +133,21 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# all_auth user
+SITE_ID = 1
+
+AUTH_USER_MODEL = 'user.BlogUser'
+
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # User can login via username or email
+ACCOUNT_UNIQUE_EMAIL = True
+
+LOGIN_REDIRECT_URL = '/blog'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/account/login'
+# ACCOUNT_SIGNUP_REDIRECT_URL = ''
+# ACCOUNT_FORMS = {
+    
+# }

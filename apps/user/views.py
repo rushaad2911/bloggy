@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from allauth.account.views import SignupView
 
-# Create your views here.
+
+# using cstom singup template
+class CustomSignupView(SignupView):
+    template_name = 'html/auth/signup.html'  
