@@ -62,6 +62,13 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",  
+)
+
+
 ROOT_URLCONF = 'bloggy.urls'
 
 TEMPLATES = [
@@ -144,10 +151,20 @@ ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # User can login via username or email
 ACCOUNT_UNIQUE_EMAIL = True
-
+ACCOUNT_SIGNUP_REDIRECT_URL = '/blog'
+ACCOUNT_LOGIN_REDIRECT_URL = '/blog'
 LOGIN_REDIRECT_URL = '/blog'
-ACCOUNT_LOGOUT_REDIRECT_URL = '/account/login'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
 # ACCOUNT_SIGNUP_REDIRECT_URL = ''
-# ACCOUNT_FORMS = {
-    
-# }
+ACCOUNT_FORMS = {
+    'signup': 'apps.user.forms.CustomSignupForm',
+    # 'login':'apps.user.forms.CustomLoginForm'
+}
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'm.rushaadq@gmail.com'
+EMAIL_HOST_PASSWORD = 'rushaadq911'

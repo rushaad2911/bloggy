@@ -1,8 +1,9 @@
 from django.shortcuts import render
-# apps/blog/views.py
 from django.http import HttpResponse
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-
-def home(request):
-    return HttpResponse("Welcome to the Blog!")
+class Home(LoginRequiredMixin,TemplateView):
+    template_name = 'html/blog/home.html'
+    

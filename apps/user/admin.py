@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import BlogUser,Interest
 
-# Register your models here.
+admin.site.register(BlogUser)
+admin.site.register(Interest)

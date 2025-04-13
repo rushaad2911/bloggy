@@ -58,22 +58,35 @@
             color: #4CAF50;
             text-decoration: none;
         }
+        .error {
+            color: red;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Login</h2>
-        <form action="/login/" method="POST">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        <form action="{% url 'account_login' %}" method="POST">
+            {% csrf_token %}
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            {% if form.non_field_errors %}
+                <div class="error">{{ form.non_field_errors }}</div>
+            {% endif %}
 
+            {% for field in form %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error">{{ field.errors }}</div>
+                {% endif %}
+            {% endfor %}
             <input type="submit" value="Login">
         </form>
+        
         <div class="signup-link">
-            <p>Don't have an account? <a href="/signup/">Sign up here</a></p>
+            <p>Don't have an account? <a href="{% url 'account_signup' %}">Sign up here</a></p>
         </div>
     </div>
 </body>

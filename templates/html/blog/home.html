@@ -1,0 +1,16 @@
+{% if request.user.is_authenticated %}
+    <p>{{ request.user }}</p>
+    <p>{{ request.user.email }}</p>
+    
+    {% if request.user.interest.count == 0 %}
+        <p>You have no interests yet.</p>
+    {% else %}
+        <ul>
+            {% for interest in request.user.interest.all %}
+                <li>{{ interest }}: {{ interest.description }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% else %}
+    <p>Please log in to see your interests.</p>
+{% endif %}
