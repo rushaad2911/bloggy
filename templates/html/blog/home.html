@@ -1,16 +1,66 @@
-{% if request.user.is_authenticated %}
-    <p>{{ request.user }}</p>
-    <p>{{ request.user.email }}</p>
-    
-    {% if request.user.interest.count == 0 %}
-        <p>You have no interests yet.</p>
-    {% else %}
-        <ul>
-            {% for interest in request.user.interest.all %}
-                <li>{{ interest }}: {{ interest.description }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% else %}
-    <p>Please log in to see your interests.</p>
-{% endif %}
+<!-- templates/blog_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .blog-card {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .blog-card h3 {
+            margin: 0;
+            color: #333;
+        }
+        .blog-card p {
+            color: #555;
+        }
+        .actions {
+            margin-top: 10px;
+        }
+        .actions a {
+            margin-right: 10px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>All Blogs</h2>
+        {% for blog in object_list %}
+            <div class="blog-card">
+                <h3>{{ blog.title }}</h3>
+                <p>{{ blog.peek }}</p>
+                <div class="actions">
+                    <a href="{% url 'blog_update' blog.pk %}">Edit</a>
+                    <a href="{% url 'blog_delete' blog.pk %}">Delete</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No blogs available.</p>
+        {% endfor %}
+        <div style="text-align:center; margin-top: 20px;">
+            <a href="{% url 'create_blog' %}">Create New Blog</a>
+        </div>
+    </div>
+</body>
+</html>

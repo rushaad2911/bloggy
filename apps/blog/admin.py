@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import BlogPage,Tags
+from .models import BlogModel
 
 
-admin.site.register(BlogPage)
-admin.site.register(Tags)
+admin.site.register(BlogModel)
