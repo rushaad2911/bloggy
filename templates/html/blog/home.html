@@ -45,22 +45,30 @@
 </head>
 <body>
     <div class="container">
-        <h2>All Blogs</h2>
-        {% for blog in object_list %}
+        <h2>Recommended Blogs</h2>
+        {% for blog in recomended_blog %}
             <div class="blog-card">
                 <h3>{{ blog.title }}</h3>
                 <p>{{ blog.peek }}</p>
                 <div class="actions">
-                    <a href="{% url 'blog_update' blog.pk %}">Edit</a>
-                    <a href="{% url 'blog_delete' blog.pk %}">Delete</a>
+                    <a href="{% url 'delete_blog' blog.pk %}">Delete</a>
                 </div>
             </div>
         {% empty %}
             <p>No blogs available.</p>
         {% endfor %}
+        
         <div style="text-align:center; margin-top: 20px;">
             <a href="{% url 'create_blog' %}">Create New Blog</a>
         </div>
+        
+        {% if limit == 10 %}
+            <div style="text-align:center; margin-top: 20px;">
+                <a href="?limit={{next_limit}}" style="color: #007BFF;">View More</a>
+            </div>
+        {% endif %}
+        
+      
     </div>
 </body>
 </html>

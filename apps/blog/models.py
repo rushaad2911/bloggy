@@ -18,6 +18,7 @@ class BlogModel(models.Model):
     tags = models.ManyToManyField(Interest, related_name='blog_tags', blank=True)  # Reference to Interest
     vectorized = models.JSONField(blank=True,null=True)
     
+    
     def __str__(self):
         return self.title
     

@@ -15,6 +15,3 @@ class BlogConfig(AppConfig):
             
         except Exception as e:
             print(f"Error loading model: {e}")
-
-    def get_model(self):
-        return self.model  # This will return the model loaded in util

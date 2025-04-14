@@ -19,5 +19,4 @@ def create_embedding(title, tags_queryset):
     tag_names = [tag.name for tag in tags_queryset]
     text = title + " " + " ".join(tag_names)
     vector = model.encode(text).tolist()  # Generate the vector
-    print(vector)  # Optional: print the vector for debugging
     return vector
